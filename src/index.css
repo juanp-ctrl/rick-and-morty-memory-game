@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --color-rick-primary: #1a7a83;
+  --color-rick-secondary: #ffd600;
+  --color-rick-background: #2c3e50;
+  --color-rick-surface: #fffac2;
+  --color-rick-text: #313d49;
+  --color-rick-text-secondary: #465669;
+  --color-rick-success: #4caf50;
+  --color-rick-error: #f44336;
+  --color-rick-warning: #ff9800;
+  --color-rick-button: #e6ec59;
+  --color-rick-blue: #a2f2f9;
+  --color-rick-green: #d8e054;
+
+  --font-family-rick: "Montserrat", "Arial", sans-serif;
+
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+
+  --border-width-3: 3px;
+
+  --aspect-ratio-card: 3/4;
+
+  --animation-spin-slow: spin 2s linear infinite;
+  --animation-bounce-subtle: bounce 2s infinite;
+
+  --shadow-rick-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-rick-md: 0 4px 6px rgba(0, 0, 0, 0.16);
+  --shadow-rick-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+  --shadow-rick-button: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+
+  --backdrop-blur-xs: 2px;
+}
+
+/* Custom styles for Rick and Morty theme */
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  body {
+    @apply bg-rick-background text-rick-text-secondary antialiased;
+    font-family: var(--font-family-rick);
+    line-height: 1.5;
+  }
+
+  #root {
+    @apply w-full min-h-screen;
+  }
+
+  button {
+    @apply cursor-pointer outline-none transition-all duration-200 ease-in-out;
+  }
+
+  button:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  input {
+    @apply outline-none transition-all duration-200 ease-in-out;
+  }
+
+  /* Custom scrollbar styles */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-rick-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-rick-primary rounded-md;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-rick-secondary;
+  }
+}
+
+@layer components {
+  /* Card flip animation */
+  .card-flip {
+    perspective: 1000px;
+  }
+
+  .card-inner {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .card-inner.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-front,
+  .card-back {
+    backface-visibility: hidden;
+  }
+
+  .card-front {
+    transform: rotateY(180deg);
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  /* Loading spinner */
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Custom shadow classes */
+  .shadow-rick-button {
+    box-shadow: var(--shadow-rick-button);
+  }
+
+  /* Button hover effects */
+  .btn-hover-effect {
+    @apply transform transition-all duration-200 ease-in-out;
+  }
+
+  .btn-hover-effect:hover:not(:disabled) {
+    @apply -translate-y-0.5 shadow-rick-md;
+    filter: brightness(1.1);
+  }
+
+  .btn-hover-effect:active:not(:disabled) {
+    @apply translate-y-0 shadow-rick-sm;
+  }
+
+  /* Card hover effects */
+  .card-hover-effect {
+    @apply transform transition-all duration-300 ease-in-out;
+  }
+
+  .card-hover-effect:hover:not(.disabled) {
+    @apply scale-105;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-rick {
+    background: linear-gradient(
+      135deg,
+      theme("colors.rick-primary"),
+      theme("colors.rick-secondary")
+    );
+  }
+
+  .gradient-success {
+    background: linear-gradient(
+      135deg,
+      rgba(76, 175, 80, 0.8),
+      rgba(255, 214, 0, 0.8)
+    );
+  }
+}
