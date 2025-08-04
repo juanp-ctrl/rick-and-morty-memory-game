@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CharacterCard } from "../../atoms/CharacterCard";
 import { Button } from "../../atoms/Button";
 import { useMemoryGame } from "../../../hooks/useMemoryGame";
@@ -30,12 +30,28 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({
     gameStarted,
   } = useMemoryGame(characters || []);
 
+  // State to track when we want to auto-start the game after refetch
+  const [shouldAutoStart, setShouldAutoStart] = useState(false);
+
+  // Auto-start game when characters are loaded and shouldAutoStart is true
+  useEffect(() => {
+    if (
+      characters &&
+      characters.length > 0 &&
+      shouldAutoStart &&
+      !gameStarted
+    ) {
+      startGame();
+      setShouldAutoStart(false);
+    }
+  }, [characters, shouldAutoStart, gameStarted, startGame]);
+
   // Function to handle game reset with new characters
   const handleResetGame = async () => {
-    // Refetch new characters - the useEffect in useMemoryGame will handle resetting all game state
+    setShouldAutoStart(true);
     await refetch();
-    startGame();
   };
+
   const stats = getGameStats();
 
   if (isLoading) {

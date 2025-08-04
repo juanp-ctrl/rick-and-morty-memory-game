@@ -158,6 +158,7 @@ export const useMemoryGame = (characters: Character[]) => {
               ),
               flippedCards: [],
               matchedPairs: prev.matchedPairs + 1,
+              moves: prev.moves + 1,
             }));
             setIsCheckingMatch(false);
           }, MATCH_DELAY);
